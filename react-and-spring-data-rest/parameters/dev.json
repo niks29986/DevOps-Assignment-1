@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "sub_id"
+        },
+        "resourceGroupName": {
+            "value": "rg-rg-devops-assignment"
+        },
+        "name": {
+            "value": "devops-assignment-webapp"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "hostingPlanName": {
+            "value": "appsp-rg-devops-assignment"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-devops-assignment"
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "linuxFxVersion": {
+            "value": ""
+        },
+        "dockerRegistryUrl": {
+            "value": ""
+        },
+        "dockerRegistryUsername": {
+            "value": ""
+        },
+        "dockerRegistryPassword": {
+            "value": null
+        },
+        "dockerRegistryStartupCommand": {
+            "value": ""
+        }
+    }
+}
