@@ -25,5 +25,5 @@ steps:
     deploymentMode: Incremental
     location: '${{ parameters.location }}'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Pipeline.Workspace)/$(artifactName)/springboot-app/templates/webapp.json'
+    csmFile: '$(Pipeline.Workspace)/$(artifactName)/springboot-app/templates/acr.json'
     csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/springboot-app/parameters/${{ parameters.parametersFile }}'

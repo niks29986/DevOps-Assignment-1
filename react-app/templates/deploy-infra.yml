@@ -15,7 +15,7 @@ steps:
     downloadPath: '$(Pipeline.Workspace)'
 
 - task: AzureResourceManagerTemplateDeployment@3
-  displayName: 'Deploy Infra'
+  displayName: 'Deploy ACR'
   inputs:
     deploymentScope: 'Resource Group'
     action: 'Create Or Update Resource Group'
@@ -25,5 +25,5 @@ steps:
     deploymentMode: Incremental
     location: '${{ parameters.location }}'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/templates/webapp.json'
+    csmFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/templates/acr.json'
     csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/parameters/${{ parameters.parametersFile }}'
