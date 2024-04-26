@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "sub_id"
+        },
+        "resourceGroupName": {
+            "value": "rg-rg-devops-assignment"
+        },
+        "name": {
+            "value": "devops-assignment-webapp"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "hostingPlanName": {
+            "value": "appsp-rg-devops-assignment"
+        },
+        "appServicePlanName": {
+            "value": "asp-devops-assignment"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-devops-assignment"
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "linuxFxVersion": {
+            "value": ""
+        },
+        "dockerRegistryUrl": {
+            "value": "dockerRegistryUrl"
+        },
+        "dockerRegistryUsername": {
+            "value": "dockerRegistryUsername"
+        },
+        "dockerRegistryPassword": {
+            "value": "dockerRegistryPassword"
+        },
+        "dockerRegistryStartupCommand": {
+            "value": ""
+        },
+        "registryName": {
+            "value": "devops-assignment-acr"
+        },
+        "taskRunName": {
+            "value": "devops-assignment-buildrun"
+        },
+        "repository": {
+            "value": "devops-assignment"
+        },
+        "sourceLocation": {
+            "value": "https://github.com/niks29986/DevOps-Assignment-1/tree/main/react-and-spring-data-rest.git"
+        }
+    }
+}

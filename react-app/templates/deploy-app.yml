@@ -1,0 +1,22 @@
+parameters:
+  parametersFile: ''
+  serviceConnectionName: ''
+  resourceGroupName: ''
+  location: ''
+  subscriptionId: ''
+
+steps:
+
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy ACR'
+  inputs:
+    deploymentScope: 'Resource Group'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '${{ parameters.resourceGroupName }}'
+    azureResourceManagerConnection: '${{ parameters.serviceConnectionName }}'
+    subscriptionId: '${{ parameters.subscriptionId }}'
+    deploymentMode: Incremental
+    location: '${{ parameters.location }}'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/templates/acr.json'
+    csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/parameters/${{ parameters.parametersFile }}'

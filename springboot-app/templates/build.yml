@@ -1,0 +1,18 @@
+parameters:
+  artifactName: ''
+
+steps:
+- task: CopyFiles@2
+  displayName: Copy source files to drop location
+  inputs:
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}/'
+    Contents: |
+      pipeline/storage/**
+      !**/.gitkeep
+      !.git/**/*
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish build artifact
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/${{ parameters.artifactName }}'
+    ArtifactName: '${{ parameters.artifactName }}'

@@ -1,0 +1,52 @@
+trigger:
+  - master
+  
+resources:
+- repo: self
+
+stages:
+
+- stage: Build
+  displayName: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/dev.yaml
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: templates/build.yml
+      parameters:
+        serviceConnectionName: ${{ variables.serviceConnectionName }}
+        artifactName: 'drop'
+
+- stage: Deploy-Dev
+  displayName: Deploy Azure Web App on Dev
+  dependsOn: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/dev.yaml
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: azure-dev
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/deploy_infra.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}
+          - template: templates/deploy-app.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}

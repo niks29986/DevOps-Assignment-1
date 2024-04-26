@@ -1,0 +1,7 @@
+variables:
+  environment: 'dev'
+  serviceConnectionName: 'assignment-dev'
+  resourceGroupName: 'assignment-dev'
+  location: 'location'
+  subscriptionId: 'subscriptionId'
+  parametersFile: '$(Pipeline.Workspace)\drop\react-app\parameters\${{ variables.environment }}.json'

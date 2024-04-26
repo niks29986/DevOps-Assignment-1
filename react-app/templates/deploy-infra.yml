@@ -1,0 +1,29 @@
+parameters:
+  parametersFile: ''
+  serviceConnectionName: ''
+  resourceGroupName: ''
+  location: ''
+  subscriptionId: ''
+
+steps:
+- task: DownloadBuildArtifacts@0
+  displayName: Download build artifacts
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: $(artifactName)
+    downloadPath: '$(Pipeline.Workspace)'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy Infra'
+  inputs:
+    deploymentScope: 'Resource Group'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '${{ parameters.resourceGroupName }}'
+    azureResourceManagerConnection: '${{ parameters.serviceConnectionName }}'
+    subscriptionId: '${{ parameters.subscriptionId }}'
+    deploymentMode: Incremental
+    location: '${{ parameters.location }}'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/templates/webapp.json'
+    csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/parameters/${{ parameters.parametersFile }}'
