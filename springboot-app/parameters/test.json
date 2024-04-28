@@ -55,6 +55,12 @@
         },
         "sourceLocation": {
             "value": "https://github.com/niks29986/DevOps-Assignment-1/tree/main/react-and-spring-data-rest.git"
+        },
+        "logAnalytics": {
+            "value": {
+                "name": "log-workspace-test",
+                "resourceGroup": "rg-devops-assignment-test"
+            }
         }
     }
 }

@@ -44,13 +44,6 @@
         "dockerRegistryStartupCommand": {
             "type": "string"
         },
-        "sku": {
-            "type": "string",
-        "allowedValues": [
-            "Standard",
-            "Premium"
-            ]
-        },
         "svcPlanSize": {
             "type": "string"
         },
@@ -80,7 +73,10 @@
         },
         "autoscaleEnabled": {
             "type": "bool"
-        }
+        },
+        "logAnalytics": {
+			"type": "object"
+		}
     },
     "variables": {
         "settingName": "[concat(toLower(parameters('svcPlanName')), '-setting')]",
@@ -92,12 +88,17 @@
             "apiVersion": "2020-06-01",
             "name": "[parameters('appServicePlanName')]",
             "location": "[parameters('location')]",
-            "sku": {
-              "name": "[parameters('sku')]"
-            },
+			"sku": {
+				"name": "P1v2",
+				"tier": "PremiumV2",
+				"size": "P1v2",
+				"family": "Pv2",
+				"capacity": 1
+			},
             "kind": "linux",
             "properties": {
-              "reserved": true
+              "reserved": true,
+              "computeMode": "Dynamic"
             }
         },
         {
@@ -169,7 +170,10 @@
             "tags": {
                 "Owner": "Team1"
             },
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+				"[resourceId('Microsoft.insights/components', parameters('name'))]"
+            ],
             "properties": {
                 "name": "[parameters('name')]",
                 "siteConfig": {
@@ -203,6 +207,18 @@
                 "httpsOnly": true,
                 "publicNetworkAccess": "Disabled"
             }
-        }
+        },
+        {
+			"type": "Microsoft.Insights/components",
+			"apiVersion": "2020-02-02-preview",
+			"name": "[parameters('name')]",
+			"location": "[resourceGroup().location]",
+            "kind": "web",
+			"properties": {
+				"ApplicationId": "[parameters('name')]",
+                "Application_Type": "web",				
+				"WorkspaceResourceId": "[resourceId(parameters('logAnalytics').resourceGroup, 'Microsoft.OperationalInsights/workspaces', parameters('logAnalytics').name)]"
+			}
+		}
     ]
 }
