@@ -20,11 +20,11 @@ Approach 2 is chosen because there is a requirement that the application should 
 Approach 2 is chosen to get modularity and maintainability. Components can be managed and maintained independently.
 
 ## Pipelines
-    ACR - Deploys Azure Container Registry
-    react-app - Build and Deploy React App as a WebApp to Azure App Service Plan
-    Springboot-app - Build and Deploy SpringBoot App as a WebApp on Azure App Service Plan
+1. ACR - Deploys Azure Container Registry
+2. react-app - Build and Deploy React App as a WebApp to Azure App Service Plan
+3. Springboot-app - Build and Deploy SpringBoot App as a WebApp on Azure App Service Plan
 
-    Sequence of execution:
-        1. ACR
-        2. react-app | springboot-app
+Sequence of execution:
+    1. ACR
+    2. react-app | springboot-app
 
