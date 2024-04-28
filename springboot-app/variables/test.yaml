@@ -1,7 +1,7 @@
 variables:
   environment: 'test'
   serviceConnectionName: 'assignment-${{ variables.environment }}'
-  resourceGroupName: 'assignment-${{ variables.environment }}'
+  resourceGroupName: 'rg-devops-assignment-${{ variables.environment }}'
   location: 'location'
   subscriptionId: 'subscriptionId'
   parametersFile: '$(Pipeline.Workspace)\drop\react-app\parameters\${{ variables.environment }}.json'
