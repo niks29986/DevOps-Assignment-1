@@ -22,7 +22,7 @@ steps:
   inputs:
     command: buildAndPush
     repository: $(imageRepository)
-    dockerfile: $(dockerfilePath)
+    dockerfile: react-app/Dockerfile
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)

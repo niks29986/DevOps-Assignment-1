@@ -1,7 +1,6 @@
-ARG REGISTRY_NAME
-FROM ${REGISTRY_NAME}/baseimages/node:15-alpine
+FROM openjdk:17-jdk-alpine
 
-COPY . /src
-RUN cd /src && npm install
-EXPOSE 80
-CMD ["node", "/src/app.js"]
+#copy is not required as running (`./mvnw clean verify`) will generate a Spring Boot flat JAR in the target folder
+#COPY target/springboot-app-*.jar springboot-app-*.jar
+
+ENTRYPOINT ["java","-jar","target/springboot-app-*.jar"]

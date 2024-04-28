@@ -6,22 +6,22 @@
             "value": "sub_id"
         },
         "resourceGroupName": {
-            "value": "rg-devops-assignment-dev"
+            "value": "rg-devops-assignment-test"
         },
         "name": {
-            "value": "devops-assignment-springboot-app-dev"
+            "value": "devops-assignment-springboot-app-test"
         },
         "location": {
             "value": "West Europe"
         },
         "hostingPlanName": {
-            "value": "appsp-rg-devops-assignment-dev"
+            "value": "appsp-rg-devops-assignment-test"
         },
         "appServicePlanName": {
-            "value": "asp-devops-assignment-dev"
+            "value": "asp-devops-assignment-test"
         },
         "serverFarmResourceGroup": {
-            "value": "rg-devops-assignment-dev"
+            "value": "rg-devops-assignment-test"
         },
         "alwaysOn": {
             "value": true
@@ -33,25 +33,25 @@
             "value": ""
         },
         "dockerRegistryUrl": {
-            "value": "dockerRegistryUrl-dev"
+            "value": "dockerRegistryUrl-test"
         },
         "dockerRegistryUsername": {
-            "value": "dockerRegistryUsername-dev"
+            "value": "dockerRegistryUsername-test"
         },
         "dockerRegistryPassword": {
-            "value": "dockerRegistryPassword-dev"
+            "value": "dockerRegistryPassword-test"
         },
         "dockerRegistryStartupCommand": {
             "value": ""
         },
         "registryName": {
-            "value": "devops-assignment-acr-dev"
+            "value": "devops-assignment-acr-test"
         },
         "taskRunName": {
             "value": "devops-assignment-buildrun"
         },
         "repository": {
-            "value": "devops-assignment-dev"
+            "value": "devops-assignment-test"
         },
         "sourceLocation": {
             "value": "https://github.com/niks29986/DevOps-Assignment-1/tree/main/react-and-spring-data-rest.git"

@@ -45,3 +45,51 @@ stages:
               location: ${{ variables.location }}
               subscriptionId: ${{ variables.subscriptionId }}
               parametersFile: ${{ variables.parametersFile }}
+
+- stage: Deploy-Test
+  displayName: Deploy Azure Web App on Test
+  dependsOn: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/test.yaml
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: azure-test
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/deploy-app.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}
+
+- stage: Deploy-Prod
+  displayName: Deploy Azure Web App on Prod
+  dependsOn: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/prod.yaml
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: azure-prod
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/deploy-app.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}

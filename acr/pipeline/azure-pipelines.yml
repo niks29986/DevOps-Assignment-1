@@ -45,3 +45,51 @@ stages:
               location: ${{ variables.location }}
               subscriptionId: ${{ variables.subscriptionId }}
               parametersFile: ${{ variables.parametersFile }}
+
+- stage: Deploy-Test
+  displayName: Deploy Acr on Test
+  dependsOn: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/acr/variables/test.yaml
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: azure-test
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/deploy_infra.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}
+
+- stage: Deploy-Prod
+  displayName: Deploy Acr on Prod
+  dependsOn: Build
+  variables:
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/acr/variables/prod.yaml
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: azure-prod
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/deploy_infra.yml
+            parameters:
+              serviceConnectionName: ${{ variables.serviceConnectionName }}
+              resourceGroupName: ${{ variables.resourceGroupName }}
+              location: ${{ variables.location }}
+              subscriptionId: ${{ variables.subscriptionId }}
+              parametersFile: ${{ variables.parametersFile }}
