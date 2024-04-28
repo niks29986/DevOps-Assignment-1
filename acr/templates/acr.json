@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "acrRegistryName": {
+        "type": "string"
+      },
+      "acrSkuName": {
+        "type": "string"
+      },
+      "acrPublicNetworkAccessEnabled": {
+        "type": "string"
+      },
+      "acrAdminUserEnabled": {
+        "type": "bool"
+      },
+      "acrEnableGeoReplication": {
+        "type": "bool"
+      },
+      "acrDataEndpointEnabled": {
+        "type": "bool"
+      }    
+    },
+    "resources": [
+      {
+        "name": "[parameters('acrRegistryName')]",
+        "type": "Microsoft.ContainerRegistry/registries",
+        "apiVersion": "2019-12-01-preview",
+        "location": "[resourceGroup().location]",
+        "tags": {},
+        "sku": {
+          "name": "[parameters('acrSkuName')]"
+        },
+        "properties": {
+          "adminUserEnabled": "[parameters('acrAdminUserEnabled')]",
+          "dataEndpointEnabled": "[parameters('acrDataEndpointEnabled')]",
+          "publicNetworkAccess": "[parameters('acrPublicNetworkAccessEnabled')]",
+          "policies": {
+            "quarantinePolicy": {
+              "status": "disabled"
+            },
+            "trustPolicy": {
+              "type": "Notary",
+              "status": "enabled"
+            },
+            "retentionPolicy": {
+              "days": 10,
+              "status": "disabled"
+            }
+          }
+        }
+      }
+    ]
+  }

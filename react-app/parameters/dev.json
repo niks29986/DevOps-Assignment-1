@@ -6,7 +6,7 @@
             "value": "sub_id"
         },
         "resourceGroupName": {
-            "value": "rg-rg-devops-assignment"
+            "value": "rg-devops-assignment"
         },
         "name": {
             "value": "devops-assignment-webapp"

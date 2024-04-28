@@ -1,7 +1,7 @@
 variables:
   environment: 'dev'
-  serviceConnectionName: 'assignment-dev'
-  resourceGroupName: 'assignment-dev'
+  serviceConnectionName: 'assignment-${{ variables.environment }}'
+  resourceGroupName: 'assignment-${{ variables.environment }}'
   location: 'location'
   subscriptionId: 'subscriptionId'
   parametersFile: '$(Pipeline.Workspace)\drop\springboot-app\parameters\${{ variables.environment }}.json'

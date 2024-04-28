@@ -1,4 +1,4 @@
-name: react-app
+name: acr
 
 trigger:
   - master
@@ -11,7 +11,7 @@ stages:
 - stage: Build
   displayName: Build
   variables:
-    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/dev.yaml
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/acr/variables/dev.yaml
   jobs:
   - job: Build
     pool:
@@ -23,10 +23,10 @@ stages:
         artifactName: 'drop'
 
 - stage: Deploy-Dev
-  displayName: Deploy Azure Web App on Dev
+  displayName: Deploy Acr on Dev
   dependsOn: Build
   variables:
-    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/dev.yaml
+    - template: ${{ variables['System.DefaultWorkingDirectory'] }}/acr/variables/dev.yaml
   condition: succeeded()
   jobs:
   - deployment: Deploy
@@ -38,7 +38,7 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: templates/deploy-app.yml
+          - template: templates/deploy_infra.yml
             parameters:
               serviceConnectionName: ${{ variables.serviceConnectionName }}
               resourceGroupName: ${{ variables.resourceGroupName }}

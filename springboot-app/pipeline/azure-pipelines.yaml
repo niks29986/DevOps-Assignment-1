@@ -36,13 +36,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: templates/deploy_infra.yml
-            parameters:
-              serviceConnectionName: ${{ variables.serviceConnectionName }}
-              resourceGroupName: ${{ variables.resourceGroupName }}
-              location: ${{ variables.location }}
-              subscriptionId: ${{ variables.subscriptionId }}
-              parametersFile: ${{ variables.parametersFile }}
           - template: templates/deploy-app.yml
             parameters:
               serviceConnectionName: ${{ variables.serviceConnectionName }}

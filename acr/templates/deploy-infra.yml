@@ -25,5 +25,5 @@ steps:
     deploymentMode: Incremental
     location: '${{ parameters.location }}'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/templates/acr.json'
-    csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/react-app/parameters/${{ parameters.parametersFile }}'
+    csmFile: '$(Pipeline.Workspace)/$(artifactName)/acr/templates/acr.json'
+    csmParametersFile: '$(Pipeline.Workspace)/$(artifactName)/acr/parameters/${{ parameters.parametersFile }}'
