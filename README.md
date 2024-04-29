@@ -20,13 +20,13 @@ Option 2 is chosen because there is a requirement that the application should sc
 Option 2 is chosen to get modularity and maintainability. Components can be managed and maintained independently.
 
 ## Pipelines
-1. ACR - Deploys Azure Container Registry
+1. acr - Deploys Azure Container Registry
 2. react-app - Build and Deploy React App as a WebApp to Azure App Service Plan
-3. Springboot-app - Build and Deploy SpringBoot App as a WebApp on Azure App Service Plan
+3. springboot-app - Build and Deploy SpringBoot App as a WebApp on Azure App Service Plan
 4. sql - To deploy sql server and db (uses bicep, powershell)
 
 ### Sequence of execution:
-    1. ACR
+    1. acr
     2. sql
     3. springboot-app
     4. react-app
