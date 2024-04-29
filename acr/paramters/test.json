@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "acrRegistryName": {
-        "value": "acrtest"
+        "value": "devops-assignment-acr-test"
       },
       "acrSkuName": {
-        "value": "Premium"
+        "value": "Standard"
       },
       "acrAdminUserEnabled": {
         "value": false

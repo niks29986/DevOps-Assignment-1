@@ -21,6 +21,9 @@ stages:
       parameters:
         serviceConnectionName: ${{ variables.serviceConnectionName }}
         artifactName: 'drop'
+        containerRegistry: ${{ variables.containerRegistry }}
+        imageName: ${{ variables.imageName }}
+        imageTag: ${{ variables.latestTag }}
 
 - stage: Deploy-Dev
   displayName: Deploy Azure Web App on Dev
@@ -48,7 +51,7 @@ stages:
 
 - stage: Deploy-Test
   displayName: Deploy Azure Web App on Test
-  dependsOn: Build
+  dependsOn: Deploy-Dev
   variables:
     - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/test.yaml
   condition: succeeded()
@@ -72,7 +75,7 @@ stages:
 
 - stage: Deploy-Prod
   displayName: Deploy Azure Web App on Prod
-  dependsOn: Build
+  dependsOn: Deploy-Test
   variables:
     - template: ${{ variables['System.DefaultWorkingDirectory'] }}/react-app/variables/prod.yaml
   condition: succeeded()

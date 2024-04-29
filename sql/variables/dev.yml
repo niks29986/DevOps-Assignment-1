@@ -1,0 +1,8 @@
+variables:
+  environment: 'dev'
+  serviceConnection: 'assignment-${{ variables.environment }}'
+  subscriptionName: '<subscriptionName>'
+  subscriptionId: '<subscriptionId>'
+  location: 'westeurope'
+  resourceGroup: 'rg-devops-assignment-${{ variables.environment }}'
+  parameterFile: '$(Pipeline.Workspace)\drop\sql\parameters\${{ variables.environment }}.json'

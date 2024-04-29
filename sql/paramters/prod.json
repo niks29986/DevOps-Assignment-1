@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location" : {
+        "value": "WestEurope"
+      },
+      "subscriptionName" : {
+        "value": "<subscriptionName>"
+      },
+      "owner": {
+        "value" : "Team1"
+      },
+      "sqlServerName": {
+        "value" : "sqlserver-prod"
+      },
+      "sqlDbName": {
+        "value" : "sqldb-prod"
+      },
+      "sqlDbSkuName" : {
+        "value": "S0"
+      },
+      "sqlDbSkuTier" : {
+        "value": "Standard"
+      },
+      "adminAADGroup": {
+        "value" : "<adminAADGroup>"
+      },
+      "adminAADGroupId": {
+        "value" : "<adminAADGroupId>"
+      },
+      "tenantId": {
+        "value" : "<tenantId>"
+      },
+      "logAnalyticsWorkspaceId": {
+        "value" : "/subscriptions/<subscriptionId>/resourcegroups/devops-assignment-acr-prod/providers/microsoft.operationalinsights/workspaces/log-workspace-prod"
+      }
+    }
+  }

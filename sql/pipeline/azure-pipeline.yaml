@@ -1,0 +1,125 @@
+name: 'sqldb'
+
+trigger:
+  paths:
+    include:
+      - sql-db
+    exclude:
+      - sql-db/*.md
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: CopyFiles@2
+      displayName: CopyTemplates
+      inputs:
+        TargetFolder: $(Build.ArtifactStagingDirectory)
+    - task: PublishBuildArtifacts@1
+      displayName: Publish artifacts
+      inputs:
+        PathtoPublish: $(Build.ArtifactStagingDirectory)
+        ArtifactName: drop
+
+- stage: dev
+  displayName: 'dev'
+  dependsOn : 
+    - build
+  variables:
+  - template: ${{ variables['System.DefaultWorkingDirectory'] }}/sql-db/variables/dev.yml
+  jobs:
+    - deployment: dev
+      displayName: 'Deploy - dev'
+      environment: ${{ variables.environment }}
+      timeoutInMinutes: 120
+      pool:
+        vmImage: 'ubuntu-latest'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: DownloadBuildArtifacts@0
+                displayName: Download build artifacts
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(Pipeline.Workspace)'
+              - template: ../templates/deploy-env.yml
+                parameters:
+                  templateFile: '$(Pipeline.Workspace)\drop\sql-db\main.bicep'
+                  templateParamFile: ${{ variables.parameterFile }}
+                  serviceConnection: ${{ variables.serviceConnection }}
+                  subscriptionName: ${{ variables.subscriptionName }}
+                  subscriptionId: ${{ variables.subscriptionId }}
+                  location: ${{ variables.location }}
+                  resourceGroup: ${{variables.resourceGroup}}
+
+- stage: test
+  displayName: 'test'
+  dependsOn : 
+    - dev
+  variables:
+  - template: ${{ variables['System.DefaultWorkingDirectory'] }}/sql-db/variables/test.yml
+  jobs:
+    - deployment: test
+      displayName: 'Deploy - test'
+      environment: ${{ variables.environment }}
+      timeoutInMinutes: 120
+      pool:
+        vmImage: 'ubuntu-latest'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: DownloadBuildArtifacts@0
+                displayName: Download build artifacts
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(Pipeline.Workspace)'
+              - template: ../templates/deploy-env.yml
+                parameters:
+                  templateFile: '$(Pipeline.Workspace)\drop\sql-db\main.bicep'
+                  templateParamFile: ${{ variables.parameterFile }}
+                  serviceConnection: ${{ variables.serviceConnection }}
+                  subscriptionName: ${{ variables.subscriptionName }}
+                  subscriptionId: ${{ variables.subscriptionId }}
+                  location: ${{ variables.location }}
+                  resourceGroup: ${{variables.resourceGroup}}
+
+- stage: prod
+  displayName: 'prod'
+  dependsOn : 
+    - test
+  variables:
+  - template: ${{ variables['System.DefaultWorkingDirectory'] }}/sql-db/variables/prod.yml
+  jobs:
+    - deployment: prod
+      displayName: 'Deploy - prod'
+      environment: ${{ variables.environment }}
+      timeoutInMinutes: 120
+      pool:
+        vmImage: 'ubuntu-latest'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: DownloadBuildArtifacts@0
+                displayName: Download build artifacts
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(Pipeline.Workspace)'
+              - template: ../templates/deploy-env.yml
+                parameters:
+                  templateFile: '$(Pipeline.Workspace)\drop\sql-db\main.bicep'
+                  templateParamFile: ${{ variables.parameterFile }}
+                  serviceConnection: ${{ variables.serviceConnection }}
+                  subscriptionName: ${{ variables.subscriptionName }}
+                  subscriptionId: ${{ variables.subscriptionId }}
+                  location: ${{ variables.location }}
+                  resourceGroup: ${{variables.resourceGroup}}

@@ -2,6 +2,6 @@ variables:
   environment: 'test'
   serviceConnectionName: 'assignment-${{ variables.environment }}'
   resourceGroupName: 'assignment-${{ variables.environment }}'
-  location: 'location'
-  subscriptionId: 'subscriptionId'
+  location: 'West Europe'
+  subscriptionId: '<subscriptionId>'
   parametersFile: '$(Pipeline.Workspace)\drop\react-app\parameters\${{ variables.environment }}.json'

@@ -1,5 +1,12 @@
 parameters:
-  artifactName: ''
+- name: artifactName
+  type: string
+- name: imageName
+  type: string
+- name: containerRegistry
+  type: string
+- name: imageTag
+  type: string
 
 steps:
 - task: CopyFiles@2
@@ -18,11 +25,26 @@ steps:
     ArtifactName: '${{ parameters.artifactName }}'
 
 - task: Docker@2
-  displayName: Build and push an image to container registry
+  displayName: Login to ACR
   inputs:
-    command: buildAndPush
-    repository: $(imageRepository)
-    dockerfile: react-app/Dockerfile
-    containerRegistry: $(dockerRegistryServiceConnection)
-    tags: |
-      $(tag)
+    command: login
+    containerRegistry: ${{ parameters.containerRegistry }}
+
+- task: Docker@2
+  displayName: Build container image
+  inputs:
+    command: build
+    Dockerfile: Dockerfile
+    addPipelineData: false
+    repository: ${{ parameters.imageName }}
+    tags: ${{ parameters.imageTag }}
+    arguments: >
+      --build-arg "BUILD_ID=$(Build.BuildId)"
+
+- task: Docker@2
+  displayName: Push container image to container registry
+  inputs:
+    repository: ${{ parameters.imageName }}
+    command: push
+    addPipelineData: false
+    tags: ${{ parameters.imageTag }}

@@ -47,9 +47,6 @@
         "registryName": {
             "value": "devops-assignment-acr-dev"
         },
-        "taskRunName": {
-            "value": "devops-assignment-buildrun"
-        },
         "repository": {
             "value": "devops-assignment-dev"
         },
