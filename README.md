@@ -31,6 +31,14 @@ Option 2 is chosen to get modularity and maintainability. Components can be mana
     3. springboot-app
     4. react-app
 
+### Pipeline Structure
+Every Pipeline carries following structure:
+- Pipeline : acr/ react/ springBoot/ sql
+    - paramters : environment specific cloud resource values
+    - pipeline : azure-pipelines.yml
+    - templates : build or deployment templates for modularity
+    - variables : environment specific connection values
+
 # Change in-memory H2 Database to Sql DB in Cloud
 
 To accommodate this change,
